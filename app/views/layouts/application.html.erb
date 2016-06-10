@@ -8,6 +8,12 @@
 </head>
 <body>
 <%= render 'layouts/header' if user_signed_in? %>
+<% if notice.present? %>
+  <p class='alert alert-success'><%= notice %></p>
+<% end %>
+<% if alert.present? %>
+  <p class='alert alert-alert'><%= alert %></p>
+<% end %>
 
 <%= yield %>
 

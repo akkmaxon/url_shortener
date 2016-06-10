@@ -13,11 +13,14 @@ gem 'devise'
 
 group :test do
   gem 'rspec-rails'
+  gem 'poltergeist'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'database_cleaner'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'byebug'
 end
 
