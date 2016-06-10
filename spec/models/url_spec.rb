@@ -3,23 +3,23 @@ require 'rails_helper'
 RSpec.describe Url do
   
   context 'create url' do
-    it 'create url with all properties' do
+    it 'with all properties' do
       url = FactoryGirl.build(:url)
       expect(url).to be_valid
     end
 
-    it 'create url without description' do
+    it 'without description' do
       url = FactoryGirl.build(:url, description: '')
+      expect(url).to be_valid
+    end
+
+    it 'with original property only' do
+      url = FactoryGirl.build(:url, short: '', description: '')
       expect(url).to be_valid
     end
   end
 
   context "don't create url" do
-    it 'with original property only' do
-      url = FactoryGirl.build(:url, short: '', description: '')
-      expect(url).to_not be_valid
-    end
-
     it 'with short property only' do
       url = FactoryGirl.build(:url, original: '', description: '')
       expect(url).to_not be_valid
