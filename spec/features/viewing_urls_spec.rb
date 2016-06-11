@@ -19,4 +19,16 @@ RSpec.feature 'Signed in user can view all his urls' do
     expect(page).to have_content second_url.original
     expect(page).to have_content third_url.original
   end
+
+  scenario 'but not anonymous' do
+    [first_url, second_url, third_url].each do |url|
+      visit '/'
+      fill_in 'Original url', with: url.original
+      click_button 'Submit'
+    end
+    
+    expect(page).to_not have_link 'View all urls'
+    visit '/urls'
+    expect(page).to have_content 'You need to sign in or sign up before continuing'
+  end
 end
