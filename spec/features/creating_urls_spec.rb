@@ -1,32 +1,54 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can create urls' do
-  let(:url) { FactoryGirl.build(:url) }
-  before do
-    visit '/'
+  context 'anonymously' do
+    let(:url) { FactoryGirl.build(:url) }
+    before do
+      visit '/'
+    end
+
+    scenario 'filling all inputs' do
+      fill_in 'Original url', with: url.original
+      fill_in 'Short url(optional)', with: url.short
+      # TODO implement later
+      # click_button 'Add description'
+      fill_in 'Description', with: url.description
+      click_button 'Submit'
+      expect(page).to have_content 'Short link has been created'
+      expect(find('div#result')).to have_content url.short
+      expect(url.user).to eq nil
+    end
+
+    scenario 'submitting empty fields' do
+      click_button 'Submit'
+      expect(page).to have_content "Original URL can't be blank"
+    end
+
+    scenario 'fill only optional fields' do
+      fill_in 'Short url(optional)', with: url.short
+      # TODO implement later
+      # click_button 'Add description'
+      fill_in 'Description', with: url.description
+      click_button 'Submit'
+      expect(page).to have_content "Original URL can't be blank"
+    end
   end
 
-  scenario 'filling all inputs' do
-    fill_in 'Original url', with: url.original
-    fill_in 'Short url(optional)', with: url.short
-    # TODO implement later
-    # click_button 'Add description'
-    fill_in 'Description', with: url.description
-    click_button 'Submit'
-    expect(page).to have_content 'Short link has been created'
-  end
+  context 'when they are logged in' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:url) { FactoryGirl.build(:url) }
 
-  scenario 'submitting empty fields' do
-    click_button 'Submit'
-    expect(page).to have_content "Original URL can't be blank"
-  end
+    scenario 'successfully' do
+      login_as(user)
+      expect(user.urls.count).to eq 0
 
-  scenario 'fill only optional fields' do
-    fill_in 'Short url(optional)', with: url.short
-    # TODO implement later
-    # click_button 'Add description'
-    fill_in 'Description', with: url.description
-    click_button 'Submit'
-    expect(page).to have_content "Original URL can't be blank"
+      visit '/'
+      fill_in 'Original url', with: url.original
+      fill_in 'Short url(optional)', with: url.short
+      click_button 'Submit'
+
+      expect(page).to have_content 'Short link has been created'
+      expect(user.urls.count).to eq 1
+    end
   end
 end

@@ -4,7 +4,8 @@ class Url < ActiveRecord::Base
 
   DOMAIN = 'http://domain.com/'
 
-  def create_short_link
+  def create_short_link(user = nil)
+    self.user = user
     if short.empty?
       self.short = DOMAIN + id.to_s(36)
     else

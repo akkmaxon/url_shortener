@@ -1,6 +1,7 @@
 class UrlsController < ApplicationController
 
   def index
+    @urls = current_user.urls
   end
 
   def show
@@ -14,7 +15,7 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     if @url.save
-      @url.create_short_link
+      @url.create_short_link(current_user)
       flash[:notice] = 'Short link has been created'
       redirect_to @url
     else

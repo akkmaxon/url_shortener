@@ -1,0 +1,7 @@
+<h1>All your urls</h1>
+
+<ul>
+<%= @urls.each do |url| %>
+  <li><%= link_to url.short, url.original, class: 'url' %></li>
+<% end %>
+</ul>
