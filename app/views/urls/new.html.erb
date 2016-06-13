@@ -8,7 +8,7 @@
   <%= f.submit 'Submit' %>
 <% end %>
 
-<% if session[:urls] %>
+<% if session[:urls] and not user_signed_in? %>
   <h2>Your last urls:</h2>
   <ul>
   <%= session[:urls].each do |original, short| %>

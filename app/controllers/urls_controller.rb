@@ -6,7 +6,13 @@ class UrlsController < ApplicationController
   end
 
   def show
-    @url = Url.find(params[:id])
+    @url = Url.find_by(short: params[:short])
+    if @url
+      redirect_to @url.original
+    else
+      flash[:alert] = 'This link is absent but you can create it'
+      redirect_to new_url_path
+    end
   end
 
   def new
