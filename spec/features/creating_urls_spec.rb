@@ -32,6 +32,15 @@ RSpec.feature 'Users can create urls' do
       click_button 'Submit'
       expect(page).to have_content "Original URL can't be blank"
     end
+
+    scenario '' do
+      new_url = FactoryGirl.create(:url, short: 'newvalue')
+      fill_in 'Original url', with: new_url.original
+      fill_in 'Short url(optional)', with: new_url.short
+      fill_in 'Description', with: new_url.description
+      click_button 'Submit'
+      expect(page).to have_content 'Short URL has already been taken'
+    end
   end
 
   context 'when they are logged in' do

@@ -2,6 +2,9 @@
 
 <ul>
 <%= @urls.each do |url| %>
-  <li><%= url.original %> (<%= show_full_address(url.short) %>)</li>
+  <li>
+    <%= url.original %> (<%= show_full_address(url.short) %>)
+    <%= link_to 'Edit', edit_url_path(url) %>
+  </li>
 <% end %>
 </ul>

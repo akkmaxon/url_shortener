@@ -1,8 +1,10 @@
 class Url < ActiveRecord::Base
   belongs_to :user
   validates :original, exclusion: { in: ['', nil], message: 'Original URL can\'t be blank' }
+  validates :short, uniqueness: { case_sensitive: false,
+				  message: 'Short URL has already been taken' }
 
-  def create_short_link(user = nil)
+  def check_link(user = nil)
     self.user = user
     self.original = 'http://' + original unless original =~ /^http/i
     self.short = id.to_s(36) if short.empty?

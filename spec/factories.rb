@@ -9,5 +9,6 @@ FactoryGirl.define do
     original 'http://somewhere.com/and/further?q=a'
     short 'abc'
     description 'Description'
+    user_id nil
   end
 end

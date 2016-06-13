@@ -1,5 +1,6 @@
 class UrlsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
+  before_action :set_url, only: [:edit, :update, :destroy]
 
   def index
     @urls = current_user.urls
@@ -22,7 +23,7 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     if @url.save
-      @url.create_short_link(current_user)
+      @url.check_link(current_user)
       add_short_url_to_session(@url) unless user_signed_in?
       flash[:notice] = 'Short link has been created'
       redirect_to user_signed_in? ? urls_path : root_path
@@ -36,6 +37,13 @@ class UrlsController < ApplicationController
   end
 
   def update
+    if @url.update(url_params)
+      @url.check_link(current_user)
+      flash[:notice] = 'Short link has been updated'
+      redirect_to urls_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -45,6 +53,10 @@ class UrlsController < ApplicationController
 
   def url_params
     params.require(:url).permit(:original, :short, :description)
+  end
+
+  def set_url
+    @url = Url.find(params[:id])
   end
 
   def add_short_url_to_session(url)
