@@ -7,3 +7,13 @@
   <%= f.text_area :description %>
   <%= f.submit 'Submit' %>
 <% end %>
+
+<% if session[:urls] %>
+  <h2>Your last urls:</h2>
+  <ul>
+  <%= session[:urls].each do |original, short| %>
+    <li><%= link_to short, url_path(short), class: 'url' %> (<%= original %>)</li>
+  <% end %>
+  </ul>
+<% end %>
+

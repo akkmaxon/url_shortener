@@ -17,8 +17,9 @@ class UrlsController < ApplicationController
     @url = Url.new(url_params)
     if @url.save
       @url.create_short_link(current_user)
+      add_short_url_to_session(@url) unless user_signed_in?
       flash[:notice] = 'Short link has been created'
-      redirect_to @url
+      redirect_to user_signed_in? ? urls_path : root_path
     else
       flash.now[:alert] = 'Original URL can\'t be blank' if @url.original.empty?
       render 'new'
@@ -38,5 +39,10 @@ class UrlsController < ApplicationController
 
   def url_params
     params.require(:url).permit(:original, :short, :description)
+  end
+
+  def add_short_url_to_session(url)
+    session[:urls] ||= {}
+    session[:urls][url.original] = url.short
   end
 end
