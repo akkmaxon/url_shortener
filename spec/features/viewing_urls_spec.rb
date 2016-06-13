@@ -21,8 +21,8 @@ RSpec.feature 'Show urls' do
 
     scenario '#index' do
       [first_url, second_url, third_url].each do |url|
+	expect(page).to have_content url.original
 	expect(page).to have_content url.short
-	expect(page).to have_content "(#{url.original})"
       end
     end
 
@@ -48,8 +48,8 @@ RSpec.feature 'Show urls' do
       visit '/'
       expect(page).to have_content 'Your last urls:'
       [first_url, second_url, third_url].each do |url|
+	expect(page).to have_content url.original
 	expect(page).to have_content url.short
-	expect(page).to have_content "(#{url.original})"
       end
     end
 

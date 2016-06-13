@@ -7,7 +7,7 @@ FactoryGirl.define do
 
   factory :url do
     original 'http://somewhere.com/and/further?q=a'
-    short 'http://app.com/abc'
+    short 'abc'
     description 'Description'
   end
 end

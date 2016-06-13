@@ -12,8 +12,7 @@
   <h2>Your last urls:</h2>
   <ul>
   <%= session[:urls].each do |original, short| %>
-    <li><%= link_to short, url_path(short), class: 'url' %> (<%= original %>)</li>
+    <li><%= original %> (<%= show_full_address(short) %>)</li>
   <% end %>
   </ul>
 <% end %>
-
