@@ -47,6 +47,9 @@ class UrlsController < ApplicationController
   end
 
   def destroy
+    @url.destroy
+    flash[:notice] = 'Url has been deleted'
+    redirect_to urls_path
   end
 
   private
