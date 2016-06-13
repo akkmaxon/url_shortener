@@ -2,6 +2,6 @@
 
 <ul>
 <%= @urls.each do |url| %>
-  <li><%= link_to url.short, url.original, class: 'url' %></li>
+  <li><%= link_to url.short, url_path(url.short), class: 'url' %> (<%= url.original %>)</li>
 <% end %>
 </ul>
