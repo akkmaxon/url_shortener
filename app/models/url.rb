@@ -1,8 +1,8 @@
 class Url < ActiveRecord::Base
   belongs_to :user
-  validates :original, exclusion: { in: ['', nil], message: 'Original URL can\'t be blank' }
+  validates :original, exclusion: { in: ['', nil], message: 'URL can\'t be blank' }
   validates :short, uniqueness: { case_sensitive: false,
-				  message: 'Short URL has already been taken' }
+				  message: 'URL has already been taken' }
 
   def check_link(user = nil)
     self.user = user

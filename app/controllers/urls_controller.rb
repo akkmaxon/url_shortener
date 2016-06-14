@@ -28,7 +28,6 @@ class UrlsController < ApplicationController
       flash[:notice] = 'Short link has been created'
       redirect_to user_signed_in? ? urls_path : root_path
     else
-      flash.now[:alert] = 'Original URL can\'t be blank' if @url.original.empty?
       render 'new'
     end
   end

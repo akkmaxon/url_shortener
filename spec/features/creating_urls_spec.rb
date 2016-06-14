@@ -22,6 +22,7 @@ RSpec.feature 'Users can create urls' do
     scenario 'submitting empty fields' do
       click_button 'Submit'
       expect(page).to have_content "Original URL can't be blank"
+      expect(page).to_not have_content 'Original Original'
     end
 
     scenario 'fill only optional fields' do
@@ -33,7 +34,7 @@ RSpec.feature 'Users can create urls' do
       expect(page).to have_content "Original URL can't be blank"
     end
 
-    scenario '' do
+    scenario 'fill short input with not unique value' do
       new_url = FactoryGirl.create(:url, short: 'newvalue')
       fill_in 'Original url', with: new_url.original
       fill_in 'Short url(optional)', with: new_url.short
