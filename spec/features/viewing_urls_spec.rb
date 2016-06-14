@@ -59,9 +59,25 @@ RSpec.feature 'Show urls' do
     end
 
     scenario '#show with wrong short url' do
-      visit '/itisnotalive'
+      wrong_link = '/itisnotalive'
+      visit wrong_link
       expect(page).to have_content 'This link is absent but you can create it'
       expect(page).to have_css 'form'
+      value = find('input#url_short').value
+      expect(value).to eq wrong_link[1..-1]
+    end
+
+    scenario 'clearing session[:absent_link] properly' do
+      link = '/stopgoinghere'
+      visit link
+      visit '/'
+      value = find('input#url_short').value
+      expect(value).to eq link[1..-1]
+      fill_in 'Original url', with: 'https://good/good/place'
+      click_button 'Submit'
+      value = find('input#url_short').value
+      expect(value).to eq ''
+      expect(Url.find_by short: link[1..-1]).to_not be_nil
     end
   end
 end

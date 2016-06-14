@@ -8,7 +8,11 @@
 
   <div class="form-group">
     <%= f.label :short, 'Short url(optional)' %>
-    <%= f.text_field :short, class: 'form-control' %>
+    <% if session[:absent_link] %>
+      <%= f.text_field :short, class: 'form-control', value: session[:absent_link] %>
+    <% else %>
+      <%= f.text_field :short, class: 'form-control' %>
+    <% end %>
   </div>
 
   <div class="form-group">

@@ -2,6 +2,7 @@ class UrlsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
   before_action :set_url, only: [:edit, :update, :destroy]
   before_action :find_blank_short_urls, only: :create
+  after_action :remove_absent_link_from_session, only: :create
 
   def index
     @urls = current_user.urls
@@ -12,6 +13,7 @@ class UrlsController < ApplicationController
     if @url
       redirect_to @url.original
     else
+      add_absent_link_to_session(params[:short])
       flash[:alert] = 'This link is absent but you can create it'
       redirect_to new_url_path
     end
@@ -22,7 +24,6 @@ class UrlsController < ApplicationController
   end
 
   def create
-    find_blank_short_urls
     @url = Url.new(url_params)
     if @url.save
       @url.check_link(current_user)
@@ -66,6 +67,15 @@ class UrlsController < ApplicationController
   def add_short_url_to_session(url)
     session[:urls] ||= []
     session[:urls] << url.id
+  end
+
+  def add_absent_link_to_session(link)
+    session[:absent_link] ||= ''
+    session[:absent_link] = link
+  end
+
+  def remove_absent_link_from_session
+    session.delete(:absent_link) if session.key? :absent_link
   end
 
   def find_blank_short_urls
