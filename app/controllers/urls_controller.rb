@@ -22,10 +22,11 @@ class UrlsController < ApplicationController
   end
 
   def create
+    find_blank_short_urls
     @url = Url.new(url_params)
     if @url.save
       @url.check_link(current_user)
-      add_short_url_to_session(@url) unless user_signed_in?
+      add_short_url_to_session(@url)
       flash[:notice] = 'Short link has been created'
       redirect_to user_signed_in? ? urls_path : root_path
     else
@@ -63,8 +64,8 @@ class UrlsController < ApplicationController
   end
 
   def add_short_url_to_session(url)
-    session[:urls] ||= {}
-    session[:urls][url.original] = url.short
+    session[:urls] ||= []
+    session[:urls] << url.id
   end
 
   def find_blank_short_urls

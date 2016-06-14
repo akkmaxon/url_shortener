@@ -1,0 +1,17 @@
+<ul class="list-group">
+<% urls.each do |url| %>
+  <li class="list-group-item">
+    <% if user_signed_in? %>
+      <div class='pull-right'>
+	<%= link_to 'Edit', edit_url_path(url) %> | 
+	<%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+    <p><strong><%= show_full_address(url.short) %></strong></p>
+    <p><%= url.original %></p>
+    <% unless url.description.empty? %>
+      <blockquote><%= url.description %></blockquote>
+    <% end %>
+  </li>
+<% end %>
+</ul>

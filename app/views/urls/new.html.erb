@@ -4,9 +4,6 @@
 
 <% if session[:urls] and not user_signed_in? %>
   <h2>Your last urls:</h2>
-  <ul>
-  <% session[:urls].each do |original, short| %>
-    <li><%= original %> (<%= show_full_address(short) %>)</li>
-  <% end %>
-  </ul>
+
+  <%= render 'layouts/list_urls', urls: urls_from_session %>
 <% end %>
