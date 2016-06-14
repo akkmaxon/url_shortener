@@ -2,21 +2,28 @@
 <html>
 <head>
   <title>Url Shortener</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%= render 'layouts/header' %>
-<% if notice.present? %>
-  <p class='alert alert-success'><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class='alert alert-alert'><%= alert %></p>
-<% end %>
+<div class='container'>
+  <div class='row'>
+    <% if notice.present? %>
+      <p class='alert alert-success'><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class='alert alert-alert'><%= alert %></p>
+    <% end %>
 
-<%= yield %>
+    <div class='col-md-offset-2 col-md-8'>
+      <%= yield %>
+    </div>
 
+  </div>
+</div>
 <%= render 'layouts/footer' %>
 <%= console if Rails.env.development? %>
 </body>
