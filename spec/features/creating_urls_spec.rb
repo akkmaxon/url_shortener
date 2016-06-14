@@ -25,6 +25,15 @@ RSpec.feature 'Users can create urls' do
       expect(page).to_not have_content 'Original Original'
     end
 
+    scenario 'catch error with empty value of short in db' do
+      FactoryGirl.create(:url, short: '')
+      visit '/'
+      fill_in 'Original url', with: url.original
+      click_button 'Submit'
+      expect(page).to_not have_content 'prohibited this url from being saved'
+      expect(page).to_not have_content 'Short URL has already been taken'
+    end
+
     scenario 'fill only optional fields' do
       fill_in 'Short url(optional)', with: url.short
       # TODO implement later

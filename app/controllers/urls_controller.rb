@@ -1,6 +1,7 @@
 class UrlsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
   before_action :set_url, only: [:edit, :update, :destroy]
+  before_action :find_blank_short_urls, only: :create
 
   def index
     @urls = current_user.urls
@@ -64,5 +65,10 @@ class UrlsController < ApplicationController
   def add_short_url_to_session(url)
     session[:urls] ||= {}
     session[:urls][url.original] = url.short
+  end
+
+  def find_blank_short_urls
+    url = Url.find_by(short: '')
+    url.check_link(current_user) unless url.nil?
   end
 end
