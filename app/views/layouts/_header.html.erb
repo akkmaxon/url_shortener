@@ -1,13 +1,25 @@
-<header>
-  <nav>
-    <ul>
+<header class='container'>
+  <nav class='row'>
+    <ul class='nav nav-tabs'>
       <% if user_signed_in? %>
-	<li><%= link_to 'View all urls', urls_path %></li>
-	<li>Signed in as <%= current_user.email %></li>
-	<li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+	<li style='padding: 10px 15px'>Signed in as <%= current_user.email %></li>
+	<li class='<%= controller.action_name == 'new' ? "active" : "" %>'>
+	  <%= link_to 'New', new_url_path %>
+	</li>
+	<li class='<%= controller.action_name == 'index' ? "active" : "" %>'>
+	  <%= link_to 'View all urls', urls_path %>
+	</li>
+	<li style='float: right'><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
       <% else %>
-	<li><%= link_to 'Sign up', new_user_registration_path %></li>
-	<li><%= link_to 'Log in', new_user_session_path %></li>
+	<li class='<%= controller_name == 'registrations' ? "active" : "" %>'>
+	  <%= link_to 'Sign up', new_user_registration_path %>
+	</li>
+	<li class='<%= controller_name == 'sessions' ? "active" : "" %>'>
+	  <%= link_to 'Log in', new_user_session_path %>
+	</li>
+	<% unless controller_name == 'urls' %>
+	  <li><%= link_to 'Create New Url', new_url_path %></li>
+	<% end %>
       <% end %>
     </ul>
   </nav>

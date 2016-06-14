@@ -15,7 +15,7 @@ RSpec.feature 'User can edit his urls' do
   context 'successfully' do
 
     scenario 'page loads properly' do
-      expect(page).to have_content 'Edit url'
+      expect(page).to have_content 'Edit Url'
       expect(page).to have_css 'form'
     end
 
