@@ -3,7 +3,8 @@
   <li class="list-group-item">
     <% if user_signed_in? %>
       <div class='pull-right'>
-	<button type="button" class="clip_button btn btn-default glyphicon glyphicon-copy" title="Copy to clipboard" data-clipboard-target="<%= url.short %>"></button> |
+	<%= button_tag '', title: 'Copy to clipboard', data: { clipboard_target: url.short },
+			   class: 'clip_button btn btn-default glyphicon glyphicon-copy' %> |
 	<%= link_to 'Edit', edit_url_path(url) %> | 
 	<%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_link' %>
       </div>
