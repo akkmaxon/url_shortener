@@ -3,11 +3,12 @@
   <li class="list-group-item">
     <% if user_signed_in? %>
       <div class='pull-right'>
+	<button type="button" class="clip_button btn btn-default glyphicon glyphicon-copy" title="Copy to clipboard" data-clipboard-target="<%= url.short %>"></button> |
 	<%= link_to 'Edit', edit_url_path(url) %> | 
-	<%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_link' %>
       </div>
     <% end %>
-    <p><strong><%= show_full_address(url.short) %></strong></p>
+    <p id="<%= url.short %>"><strong><%= show_full_address(url.short) %></strong></p>
     <p><%= url.original %></p>
     <% unless url.description.empty? %>
       <blockquote><%= url.description %></blockquote>
