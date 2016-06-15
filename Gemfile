@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.3.0'
 
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
@@ -25,3 +25,7 @@ group :development do
   gem 'byebug'
 end
 
+group :production do
+  gem 'rails_12factor'
+  gem 'puma'
+end
