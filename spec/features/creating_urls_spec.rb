@@ -51,6 +51,18 @@ RSpec.feature 'Users can create urls' do
       click_button 'Submit'
       expect(page).to have_content 'Short URL has already been taken'
     end
+
+    scenario 'attempts to create links /urls and /stats' do
+      %w[ urls stats ].each do |link|
+	fill_in 'Original url', with: url.original
+	fill_in 'Short url(optional)', with: link
+	click_button 'Submit'
+	expect(page).to have_content 'Short link has been created'
+	within('.list-group') do
+	  expect(page).to_not have_content link
+	end
+      end
+    end
   end
 
   context 'when they are logged in' do

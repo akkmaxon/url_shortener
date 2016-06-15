@@ -7,6 +7,7 @@ class Url < ActiveRecord::Base
   def check_link(user = nil)
     self.user = user
     self.original = 'http://' + original unless original =~ /^http/i
+    self.short = clear_forbidden short
     while short.empty?
       rand_num ||= 0
       new_short = (id + rand_num).to_s(36)
@@ -14,5 +15,12 @@ class Url < ActiveRecord::Base
       rand_num = rand(1000000)
     end
     self.save
+  end
+
+  def clear_forbidden(link)
+    %w[ urls stats].each do |f|
+      return '' if link == f
+    end
+    link
   end
 end
