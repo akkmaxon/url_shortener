@@ -1,6 +1,6 @@
 module UrlsHelper
   def show_full_address(short_url)
-    'http://akkush.herokuapp.com/' + short_url
+    HOSTNAME + short_url
   end
 
   def urls_from_session
