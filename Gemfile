@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'devise'
 gem 'zeroclipboard-rails'
+gem 'faker'
 
 group :test do
   gem 'rspec-rails'
