@@ -1,12 +1,3 @@
-<% unless user_signed_in? %>
-  <div class="jumbotron">
-    <h1>This is Url Shortener.</h1>
-    <p>Service for creating short urls, similar to 
-    <a href='https://goo.gl' target='_blank'>https://goo.gl</a>, 
-    <a href='http://tinyurl.com' target='_blank'>http://tinyurl.com</a> and others.</p>
-  </div>
-<% end %>
-
 <h1>New Url</h1>
 
 <%= render 'form' %>
