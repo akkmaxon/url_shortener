@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :urls
   get '/:short' => 'urls#show'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   root 'urls#new'
 end

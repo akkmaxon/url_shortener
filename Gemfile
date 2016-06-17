@@ -12,6 +12,8 @@ gem 'turbolinks'
 gem 'devise'
 gem 'zeroclipboard-rails'
 gem 'faker'
+gem 'omniauth-vk'
+gem 'omniauth-twitter'
 
 group :test do
   gem 'rspec-rails'
