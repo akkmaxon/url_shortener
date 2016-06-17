@@ -14,9 +14,10 @@ end
 User.all.each do |user|
   urls_count = Url.count
   (1..MAX_URLS_PER_USER).each do |n|
-    Url.create user: user,
-      original: Faker::Internet.url,
-      short: (urls_count + n).to_s(36),
+    url = user.urls.build original: Faker::Internet.url,
+      short: '',
       description: Faker::Lorem.paragraph
+    url.generate_short_and_save
   end
+  puts "User #{user.email} created with #{user.urls.count} urls" if Rails.env.development?
 end
