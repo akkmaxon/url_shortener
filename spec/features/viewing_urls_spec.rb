@@ -15,6 +15,7 @@ RSpec.feature 'Show urls' do
       [first_url, second_url, third_url].each do |url|
 	visit '/'
 	fill_in 'Original url', with: url.original
+	fill_in 'Short url(optional)', with: url.short
 	click_button 'Submit'
       end
     end
@@ -37,6 +38,7 @@ RSpec.feature 'Show urls' do
       [first_url, second_url, third_url].each do |url|
 	visit '/'
 	fill_in 'Original url', with: url.original
+	fill_in 'Short url(optional)', with: url.short
 	click_button 'Submit'
       end
     end
