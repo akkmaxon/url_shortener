@@ -3,6 +3,7 @@ class UrlsController < ApplicationController
   before_action :set_url, only: [:edit, :update, :destroy]
   before_action :find_blank_short_urls, only: :create
   after_action :remove_absent_link_from_session, only: :create
+  before_action :allowed_action, only: [:edit, :update]
 
   def index
     @urls = current_user.urls
@@ -81,5 +82,13 @@ class UrlsController < ApplicationController
   def find_blank_short_urls
     url = Url.find_by(short: '')
     url.generate_short_and_save unless url.nil?
+  end
+
+  def allowed_action
+    url = Url.find(params[:id])
+    unless url.user == current_user
+      flash[:alert] = 'You are allowed to edit only your own urls'
+      redirect_to urls_path
+    end
   end
 end

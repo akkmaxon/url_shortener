@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Search urls' do
-  def make_search_request(keywords, direction)
-    fill_in :search_keywords, with: keywords
-    click_button 'search_menu'
-    click_button direction
-  end
-
   let!(:first) { FactoryGirl.create(:url, original: 'http://first/original/link',
 					  short: 'firstshort',
 					  description: 'Describe first link') }
