@@ -3,7 +3,7 @@ class UrlsController < ApplicationController
   before_action :set_url, only: [:edit, :update, :destroy]
   before_action :find_blank_short_urls, only: :create
   after_action :remove_absent_link_from_session, only: :create
-  before_action :allowed_action, only: [:edit, :update]
+  before_action :allowed_action, only: [:edit, :update, :destroy]
 
   def index
     @urls = current_user.urls
