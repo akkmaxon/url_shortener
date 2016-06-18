@@ -1,6 +1,6 @@
 <% unless @result.nil? %>
 
-  <h1>Found <%= @result.count %> '<%= params[:search_keywords] %>' in '<%= params[:commit] %>':</h1>
+  <h1>Found <%= @result.count %> '<%= what_we_looking_for(params) %>':</h1>
 
   <%= will_paginate @result %>
 

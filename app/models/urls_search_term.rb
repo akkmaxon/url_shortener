@@ -34,12 +34,12 @@ class UrlsSearchTerm
     end
   end
 
-  private
-
   def unique_keywords
     k = @keywords.split(/\W/).uniq
     k.select {|keyword| keyword =~ /\w/ }
   end
+
+  private
 
   def mix_keywords
     k = unique_keywords << @keywords
