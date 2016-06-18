@@ -16,6 +16,7 @@ gem 'omniauth-vk'
 gem 'omniauth-twitter'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'highline'
 
 group :test do
   gem 'rspec-rails'
