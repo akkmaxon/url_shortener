@@ -7,9 +7,9 @@ class SearchController < ApplicationController
       @result = Url.where(
 	urls_search_term.where_clause,
 	urls_search_term.where_args).
-	order(urls_search_term.order)
+	order(urls_search_term.order).paginate(page: params[:page], per_page: 10)
     else
-      flash[:alert] = 'Your search request is empty'
+      flash.now[:alert] = 'Your search request is empty'
       @result = nil
     end
   end

@@ -6,7 +6,7 @@ class UrlsController < ApplicationController
   before_action :allowed_action, only: [:edit, :update, :destroy]
 
   def index
-    @urls = current_user.urls
+    @urls = current_user.urls.paginate(page: params[:page], per_page: 10)
   end
 
   def show

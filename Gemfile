@@ -14,6 +14,8 @@ gem 'zeroclipboard-rails'
 gem 'faker'
 gem 'omniauth-vk'
 gem 'omniauth-twitter'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :test do
   gem 'rspec-rails'

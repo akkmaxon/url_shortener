@@ -1,7 +1,11 @@
 <% unless @result.nil? %>
 
-<h1>Search results:</h1>
+  <h1>Found <%= @result.count %> '<%= params[:search_keywords] %>' in '<%= params[:commit] %>':</h1>
 
-<%= render 'layouts/list_urls', urls: @result %>
+  <%= will_paginate @result %>
+
+  <%= render 'layouts/list_urls', urls: @result %>
+
+  <%= will_paginate @result %>
 
 <% end %>
