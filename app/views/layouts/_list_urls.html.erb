@@ -1,21 +1,27 @@
 <ul class="list-group">
-<% urls.each do |url| %>
-  <li class="list-group-item">
-    <div class='pull-right'>
-      <%= button_tag '', title: 'Copy to clipboard', data: { clipboard_target: url.short },
-			 class: 'clip_button btn btn-default glyphicon glyphicon-copy' %>
-      <% if user_signed_in? %>
-	<% if url.user == current_user %>
-	| <%= link_to 'Edit', edit_url_path(url) %> | 
-	  <%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_link' %>
+  <% urls.each do |url| %>
+    <li class="list-group-item">
+      <div class="pull-right" style="margin: 7px 0 0 30px">
+	<% if user_signed_in? %>
+	  <% if url.user == current_user %>
+	    <%= link_to 'Edit', edit_url_path(url) %> | 
+	    <%= link_to 'Delete', url, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_link' %>
+	  <% end %>
 	<% end %>
+      </div>
+      <div class="input-group">
+	<%= text_field_tag url.short, show_full_address(url.short), class: 'form-control' %>
+	<span class="input-group-btn">
+	  <%= button_tag '', title: 'Copy to clipboard', 
+	    data: { clipboard_target: "##{url.short}" },
+	    class: 'clip_button btn btn-default glyphicon glyphicon-copy' %>
+	</span>
+      </div>
+      <br>
+      <p>Original: <strong><%= url.original %></strong></p>
+      <% unless url.description.empty? %>
+	<blockquote><%= url.description %></blockquote>
       <% end %>
-    </div>
-    <p id="<%= url.short %>"><strong><%= show_full_address(url.short) %></strong></p>
-    <p><%= url.original %></p>
-    <% unless url.description.empty? %>
-      <blockquote><%= url.description %></blockquote>
-    <% end %>
-  </li>
-<% end %>
+    </li>
+  <% end %>
 </ul>
