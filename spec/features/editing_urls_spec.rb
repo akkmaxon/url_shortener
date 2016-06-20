@@ -26,15 +26,15 @@ RSpec.feature 'User can edit his urls' do
       click_button 'Submit'
 
       expect(page).to have_content 'Short link has been updated'
-      expect(page).to have_content "/#{new_url.short}"
+      expect(page).to have_css "input##{new_url.short}"
       expect(new_url).to_not be_valid
     end
 
     scenario 'without any changes' do
       click_button 'Submit'
       expect(page).to have_content 'Short link has been updated'
-      expect(page).to have_content "/#{url.short}"
-      expect(page).to_not have_content "/#{new_url.short}"
+      expect(page).to have_css "input##{url.short}"
+      expect(page).to_not have_css "input##{new_url.short}"
       expect(new_url).to be_valid
     end
   end

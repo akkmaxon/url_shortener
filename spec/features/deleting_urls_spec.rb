@@ -11,7 +11,7 @@ RSpec.feature 'User can delete urls' do
   end
 
   scenario 'page loads properly' do
-    expect(page).to have_content "/#{url.short}"
+    expect(page).to have_css "input##{url.short}"
     expect(page).to have_link 'Delete'
   end
 

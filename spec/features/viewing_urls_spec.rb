@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'Show urls' do
   let(:user) { FactoryGirl.create(:user) }
-  let(:first_url) { FactoryGirl.build(:url, original: 'first', short: '1') }
-  let(:second_url) { FactoryGirl.build(:url, original: 'second', short: '2') }
-  let(:third_url) { FactoryGirl.build(:url, original: 'third', short: '3') }
+  let(:first_url) { FactoryGirl.build(:url, original: 'first', short: 'a1') }
+  let(:second_url) { FactoryGirl.build(:url, original: 'second', short: 'a2') }
+  let(:third_url) { FactoryGirl.build(:url, original: 'third', short: 'a3') }
   let(:valid_url) { FactoryGirl.create(:url, original: 'https://duckduckgo.com/?q=ruby+on+rails',
 					     short: 'rails',
 					     description: 'This link is valid') }
@@ -23,7 +23,7 @@ RSpec.feature 'Show urls' do
     scenario '#index' do
       [first_url, second_url, third_url].each do |url|
 	expect(page).to have_content url.original
-	expect(page).to have_content url.short
+	expect(page).to have_css "input##{url.short}"
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.feature 'Show urls' do
       expect(page).to have_content 'Your last urls:'
       [first_url, second_url, third_url].each do |url|
 	expect(page).to have_content url.original
-	expect(page).to have_content url.short
+	expect(page).to have_css "input##{url.short}"
       end
     end
 

@@ -14,8 +14,8 @@ RSpec.feature 'Users can create urls' do
       # click_button 'Add description'
       fill_in 'Description', with: url.description
       click_button 'Submit'
+      expect(page).to have_css "input##{url.short}"
       expect(page).to have_content 'Short link has been created'
-      expect(page).to have_content "/#{url.short}"
       expect(url.user).to eq nil
     end
 
@@ -79,7 +79,7 @@ RSpec.feature 'Users can create urls' do
       click_button 'Submit'
 
       expect(page).to have_content 'Short link has been created'
-      expect(page).to have_content "/#{url.short}"
+      expect(page).to have_css "input##{url.short}"
       expect(user.urls.count).to eq 1
     end
   end

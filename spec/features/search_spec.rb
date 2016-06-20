@@ -18,7 +18,7 @@ RSpec.feature 'Search urls' do
     make_search_request 'original', 'Original URL'
     [first, second, third].each do |link|
       expect(page).to have_content link.original
-      expect(page).to have_content link.short
+      expect(page).to have_css "input##{link.short}"
       expect(page).to have_content link.description
     end
   end
