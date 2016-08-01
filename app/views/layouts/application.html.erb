@@ -8,23 +8,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/header' %>
-<div class='container'>
-  <div class='row'>
-    <% if notice.present? %>
-      <p class='alert alert-success'><%= notice %></p>
-    <% elsif alert.present? %>
-      <p class='alert alert-danger'><%= alert %></p>
-    <% else %>
-      <p style='padding: 30px'></p>
-    <% end %>
+  <% if Rails.env.development? %>
+    <button id="console-toggle" class="btn btn-link btn-lg">
+      <span class="glyphicon glyphicon-console"></span>
+    </button>
+    <% console %>
+  <% end %>
+  <%= render 'layouts/header' %>
+  <div class='container'>
+    <div class='row'>
+      <% if notice.present? %>
+	<p class='alert alert-success'><%= notice %></p>
+      <% elsif alert.present? %>
+	<p class='alert alert-danger'><%= alert %></p>
+      <% else %>
+	<p style='padding: 30px'></p>
+      <% end %>
 
-    <div class='col-md-offset-2 col-md-8'>
-      <%= yield %>
+      <div class='col-md-offset-2 col-md-8'>
+	<%= yield %>
+      </div>
+
     </div>
-
   </div>
-</div>
-<%= console if Rails.env.development? %>
 </body>
 </html>
